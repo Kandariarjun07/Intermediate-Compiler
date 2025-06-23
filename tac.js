@@ -81,6 +81,16 @@ export class TACGenerator {
         return resultTemp;
     }
 
+    visitUnaryOpNode(node) {
+        const argTemp = this.visit(node.arg);
+        if (node.op === '++') {
+            this.emit('+=', argTemp, 1, argTemp);
+        } else if (node.op === '--') {
+            this.emit('-=', argTemp, 1, argTemp);
+        }
+        return argTemp;
+    }
+
     visitNumberNode(node) {
         return node.value.toString();
     }

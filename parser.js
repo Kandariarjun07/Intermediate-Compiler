@@ -1,6 +1,6 @@
 // parser.js
 // This file contains the Parser class, which builds the AST from tokens.
-import { ProgramNode, FunctionDefinitionNode, ParamNode, BlockNode, VariableDeclarationNode, AssignmentNode, BinaryOpNode, NumberNode, IdentifierNode, StringLiteralNode, FunctionCallNode, IfStatementNode, ForLoopNode, ReturnStatementNode } from './astNodes.js';
+import { ProgramNode, FunctionDefinitionNode, ParamNode, BlockNode, VariableDeclarationNode, AssignmentNode, BinaryOpNode, NumberNode, IdentifierNode, StringLiteralNode, FunctionCallNode, IfStatementNode, ForLoopNode, ReturnStatementNode, UnaryOpNode } from './astNodes.js';
 
 export class Parser {
     constructor(t) { this.tokens = t; this.pos = 0; this.errors = []; }
@@ -54,6 +54,15 @@ export class Parser {
         if (t.type === 'IDENTIFIER' || t.value === 'printf') {
             if (this.tokens[this.pos + 1]?.value === '(') return this.parseFunctionCallStatement();
             if (this.tokens[this.pos + 1]?.value === '=') return this.parseAssignment();
+            // Support i++; and i--;
+            if (this.tokens[this.pos + 1]?.type === 'OPERATOR' && (this.tokens[this.pos + 1].value === '++' || this.tokens[this.pos + 1].value === '--')) {
+                const idTok = this.currentToken();
+                this.advance();
+                const opTok = this.currentToken();
+                this.advance();
+                this.expect('SEPARATOR', ';');
+                return new UnaryOpNode(opTok.value, new IdentifierNode(idTok));
+            }
         }
         this.error("Invalid statement"); return null;
     }
@@ -66,8 +75,12 @@ export class Parser {
         this.expect('KEYWORD', 'for'); this.expect('SEPARATOR', '(');
         const init = this.parseVariableDeclaration();
         const cond = this.parseExpression(); this.expect('SEPARATOR', ';');
-        const inc = this.parseAssignment(true);
-        this.expect('SEPARATOR', ')'); const body = this.parseBlock();
+        let inc = null;
+        if (this.currentToken()?.type !== 'SEPARATOR' || this.currentToken()?.value !== ')') {
+            inc = this.parseExpression();
+        }
+        this.expect('SEPARATOR', ')');
+        const body = this.parseBlock();
         return new ForLoopNode(init, cond, inc, body);
     }
     parseReturnStatement() { this.expect('KEYWORD', 'return'); let v = null; if (this.currentToken()?.value !== ';') { v = this.parseExpression(); } this.expect('SEPARATOR', ';'); return new ReturnStatementNode(v); }

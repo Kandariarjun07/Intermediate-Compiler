@@ -16,3 +16,4 @@ export class FunctionCallNode extends ASTNode { constructor(n, a) { super(); thi
 export class IfStatementNode extends ASTNode { constructor(c, ib, eb = null) { super(); this.condition = c; this.ifBody = ib; this.elseBody = eb; } }
 export class ForLoopNode extends ASTNode { constructor(init, cond, inc, body) { super(); this.init = init; this.condition = cond; this.increment = inc; this.body = body; } }
 export class ReturnStatementNode extends ASTNode { constructor(v) { super(); this.value = v; } }
+export class UnaryOpNode extends ASTNode { constructor(op, arg) { super(); this.op = op; this.arg = arg; } }

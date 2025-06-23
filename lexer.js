@@ -5,13 +5,12 @@ export class Lexer {
     constructor(code) { this.code = code; }
 
     tokenize() {
-        const tokens = [];
-        const tokenSpecs = [
+        const tokens = []; const tokenSpecs = [
             { type: 'FLOAT_LIT', regex: /^\d+\.\d+/ }, { type: 'INT_LIT', regex: /^\d+/ },
             { type: 'STRING_LIT', regex: /^"[^"]*"/ },
             { type: 'KEYWORD', regex: /^\b(int|void|if|else|while|for|return|printf)\b/ },
             { type: 'IDENTIFIER', regex: /^[a-zA-Z_][a-zA-Z0-9_]*/ },
-            { type: 'OPERATOR', regex: /^(==|!=|<=|>=|&&|\|\||[+\-*/=<>!])/ },
+            { type: 'OPERATOR', regex: /^(\+\+|--|==|!=|<=|>=|\+=|-=|\*=|\/=|&&|\|\||[+\-*/=<>!])/ },
             { type: 'SEPARATOR', regex: /^[\(\)\{\};,]/ }, { type: 'MISMATCH', regex: /^./ },
         ];
 
