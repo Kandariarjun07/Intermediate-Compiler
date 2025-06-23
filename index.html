@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C to Intermediate Code Compiler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>C to Intermediate Code Compiler</h1>
+    <div class="main-grid">
+        <!-- Top-Left: Code Input -->
+        <div class="panel">
+            <div class="panel-title">Enter C code:</div>
+            <textarea id="codeInput" spellcheck="false" class="panel-content">int square(int n) {
+    return n * n;
+}
+
+int main() {
+    int x = 5;
+    
+    for (int i = 0; i < 2; i = i + 1) {
+        int y = square(i);
+        printf("val", y);
+    }
+    
+    return x;
+}
+            </textarea>
+            <button id="analyzeBtn"><span id="btnText">Analyze</span></button>
+        </div>
+        <!-- Top-Right: Lexemes/Tokens -->
+        <div class="panel">
+            <div class="panel-title">Lexemes (Tokens)</div>
+            <div id="tokens-content" class="panel-content"></div>
+        </div>
+        <!-- Bottom-Left: Symbol Table -->
+        <div class="panel">
+            <div class="panel-title">Symbol Table</div>
+            <div id="symbol-table-content" class="panel-content"></div>
+        </div>
+        <!-- Bottom-Right: Intermediate Code -->
+        <div class="panel">
+            <div class="panel-title">Intermediate Code</div>
+            <div id="tac-content" class="panel-content"></div>
+        </div>
+    </div>
+    <!-- Error Panel -->
+    <div id="error-panel">
+        <div class="error-title">Analysis Errors</div>
+        <div id="error-content"></div>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>l̥
+
+</html>
