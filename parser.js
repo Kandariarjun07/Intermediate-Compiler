@@ -204,13 +204,11 @@ export class Parser {
         this.expect('SEPARATOR', '(');
 
         const init = this.parseVariableDeclaration();
-        const cond = this.parseExpression();
-        this.expect('SEPARATOR', ';');
 
-        let inc = null;
-        if (this.currentToken()?.type !== 'SEPARATOR' || this.currentToken()?.value !== ')') {
-            inc = this.parseExpression();
-        }
+        const cond = this.parseExpression();
+        this.expect('SEPARATOR', ';'); 
+
+        const inc = this.parseAssignment(true);
 
         this.expect('SEPARATOR', ')');
         const body = this.parseBlock();
