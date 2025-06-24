@@ -1,19 +1,141 @@
-// astNodes.js
-// This file defines the classes for each type of node in our Abstract Syntax Tree.
-
+// Base AST Node class
 export class ASTNode { }
-export class ProgramNode extends ASTNode { constructor(c) { super(); this.children = c; } }
-export class FunctionDefinitionNode extends ASTNode { constructor(rt, n, p, b) { super(); this.returnType = rt; this.name = n; this.params = p; this.body = b; } }
-export class ParamNode extends ASTNode { constructor(pt, pn) { super(); this.paramType = pt; this.paramName = pn; } }
-export class BlockNode extends ASTNode { constructor(s) { super(); this.statements = s; } }
-export class VariableDeclarationNode extends ASTNode { constructor(vt, vn, v = null) { super(); this.varType = vt; this.varName = vn; this.value = v; } }
-export class AssignmentNode extends ASTNode { constructor(l, r) { super(); this.left = l; this.right = r; } }
-export class BinaryOpNode extends ASTNode { constructor(l, o, r) { super(); this.left = l; this.op = o; this.right = r; } }
-export class NumberNode extends ASTNode { constructor(t) { super(); this.token = t; this.value = t.value; } }
-export class IdentifierNode extends ASTNode { constructor(t) { super(); this.token = t; this.name = t.value; } }
-export class StringLiteralNode extends ASTNode { constructor(t) { super(); this.token = t; this.value = t.value; } }
-export class FunctionCallNode extends ASTNode { constructor(n, a) { super(); this.name = n; this.args = a; } }
-export class IfStatementNode extends ASTNode { constructor(c, ib, eb = null) { super(); this.condition = c; this.ifBody = ib; this.elseBody = eb; } }
-export class ForLoopNode extends ASTNode { constructor(init, cond, inc, body) { super(); this.init = init; this.condition = cond; this.increment = inc; this.body = body; } }
-export class ReturnStatementNode extends ASTNode { constructor(v) { super(); this.value = v; } }
-export class UnaryOpNode extends ASTNode { constructor(op, arg) { super(); this.op = op; this.arg = arg; } }
+
+// Root of the program
+export class ProgramNode extends ASTNode {
+    constructor(children) {
+        super();
+        this.children = children;
+    }
+}
+
+// Function definition: return type, name, params, and body
+export class FunctionDefinitionNode extends ASTNode {
+    constructor(returnType, name, params, body) {
+        super();
+        this.returnType = returnType;
+        this.name = name;
+        this.params = params;
+        this.body = body;
+    }
+}
+
+// Function parameter: type and name
+export class ParamNode extends ASTNode {
+    constructor(paramType, paramName) {
+        super();
+        this.paramType = paramType;
+        this.paramName = paramName;
+    }
+}
+
+// A block of statements (like function body or loops)
+export class BlockNode extends ASTNode {
+    constructor(statements) {
+        super();
+        this.statements = statements;
+    }
+}
+
+// Variable declaration with optional value
+export class VariableDeclarationNode extends ASTNode {
+    constructor(varType, varName, value = null) {
+        super();
+        this.varType = varType;
+        this.varName = varName;
+        this.value = value;
+    }
+}
+
+// Assignment: left-hand side and right-hand side
+export class AssignmentNode extends ASTNode {
+    constructor(left, right) {
+        super();
+        this.left = left;
+        this.right = right;
+    }
+}
+
+// Binary operation: left, operator, and right
+export class BinaryOpNode extends ASTNode {
+    constructor(left, op, right) {
+        super();
+        this.left = left;
+        this.op = op;
+        this.right = right;
+    }
+}
+
+// Numeric literal node
+export class NumberNode extends ASTNode {
+    constructor(token) {
+        super();
+        this.token = token;
+        this.value = token.value;
+    }
+}
+
+// Identifier (variable or function name)
+export class IdentifierNode extends ASTNode {
+    constructor(token) {
+        super();
+        this.token = token;
+        this.name = token.value;
+    }
+}
+
+// String literal
+export class StringLiteralNode extends ASTNode {
+    constructor(token) {
+        super();
+        this.token = token;
+        this.value = token.value;
+    }
+}
+
+// Function call: function name and arguments
+export class FunctionCallNode extends ASTNode {
+    constructor(name, args) {
+        super();
+        this.name = name;
+        this.args = args;
+    }
+}
+
+// If-Else statement
+export class IfStatementNode extends ASTNode {
+    constructor(condition, ifBody, elseBody = null) {
+        super();
+        this.condition = condition;
+        this.ifBody = ifBody;
+        this.elseBody = elseBody;
+    }
+}
+
+// For loop: initializer, condition, increment, and body
+export class ForLoopNode extends ASTNode {
+    constructor(init, condition, increment, body) {
+        super();
+        this.init = init;
+        this.condition = condition;
+        this.increment = increment;
+        this.body = body;
+    }
+}
+
+// Return statement
+export class ReturnStatementNode extends ASTNode {
+    constructor(value) {
+        super();
+        this.value = value;
+    }
+}
+
+// Unary operation like !x, -x
+export class UnaryOpNode extends ASTNode {
+    constructor(op, arg) {
+        super();
+        this.op = op;
+        this.arg = arg;
+    }
+}
