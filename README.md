@@ -19,7 +19,10 @@ It performs the classic "Compiler Dance":
 
 ## 🚀 Experience It
 
-Zero installation. Zero backend. Zero npm install nonsense.
+Try the live demo instantly:
+👉 **[Live Demo](https://intermediate-compiler.netlify.app/)**
+
+Or run it locally (Zero installation, Zero backend):
 
 1.  Clone this repo (or just download the zip).
 2.  Double-click `index.html`.
@@ -35,7 +38,7 @@ Zero installation. Zero backend. Zero npm install nonsense.
 
 ## 🎮 Playground (What input works?)
 
-This isn't GCC, but it tries its best! It speaks a specific dialect of C.
+**⚠️ Disclaimer:** This is an educational project, not a full-blown C compiler like GCC. It supports a **basic subset** of the C language. It doesn't know what pointers, structs, or arrays are (yet). But it handles integers, functions, and control flow like a champ!
 
 **Try pasting this into the editor:**
 
